@@ -6,7 +6,7 @@ export const getMovies = async (req, res) => {
   res.send(movies);
 };
 
-export const addMovie = (req, res) => {
+export const addMovie = async (req, res) => {
   const { title, description, year, duration, genre, rating, image } = req.body;
   const newMovie = new Movie({
     title,
@@ -18,11 +18,28 @@ export const addMovie = (req, res) => {
     image,
   });
   console.log(newMovie);
-  return res.send(newMovie);
+  await newMovie.save();
+  return res.json(newMovie);
 };
 
-export const updateMovie = (req, res) => res.send("Movie updated");
+export const updateMovie = async (req, res) => {
+  const movie = await Movie.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+  });
+  console.log(movie);
+  return res.json(movie);
+};
 
-export const deleteMovie = (req, res) => res.send("Movie deleted");
+export const deleteMovie = async (req, res) => {
+  const movieDeleted = await Movie.findByIdAndDelete(req.params.id);
 
-export const getMovie = (req, res) => res.send("Movie detail");
+  if (!movieDeleted) return res.status(404).send({ msg: "Movie not found" });
+
+  return res.status(200).send({ msg: "Succefully deleted" });
+};
+
+export const getMovie = async (req, res) => {
+  const movie = await Movie.findById(req.params.id);
+  if (!movie) return res.status(404).send({ msg: "Movie not found" });
+  return res.json(movie);
+};

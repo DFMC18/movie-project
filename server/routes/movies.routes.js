@@ -12,8 +12,8 @@ const router = Router();
 
 router.get("/movies", getMovies);
 router.post("/movies", addMovie);
-router.put("/movies", updateMovie);
-router.delete("/movies", deleteMovie);
+router.put("/movies/:id", updateMovie);
+router.delete("/movies/:id", deleteMovie);
 router.get("/movies/:id", getMovie);
 
 export default router;

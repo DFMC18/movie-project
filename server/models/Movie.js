@@ -15,25 +15,25 @@ const movieSchema = new mongoose.Schema({
 
   year: {
     type: Number,
-    required: true,
+    required: false,
     trim: true,
   },
 
   duration: {
     type: Number,
-    required: true,
+    required: false,
     trim: true,
   },
 
   genre: {
     type: String,
-    required: true,
+    required: false,
     trim: true,
   },
 
   rating: {
     type: Number,
-    required: true,
+    required: false,
     trim: true,
   },
 
