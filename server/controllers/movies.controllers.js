@@ -6,7 +6,20 @@ export const getMovies = async (req, res) => {
   res.send(movies);
 };
 
-export const addMovie = (req, res) => res.send("New movie created");
+export const addMovie = (req, res) => {
+  const { title, description, year, duration, genre, rating, image } = req.body;
+  const newMovie = new Movie({
+    title,
+    description,
+    year,
+    duration,
+    genre,
+    rating,
+    image,
+  });
+  console.log(newMovie);
+  return res.send(newMovie);
+};
 
 export const updateMovie = (req, res) => res.send("Movie updated");
 
